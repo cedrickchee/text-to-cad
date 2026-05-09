@@ -8,7 +8,7 @@
 
 An open source harness for generating 3D models with your favorite coding agent
 
-[Demo project](https://text-to-cad.earthtojake.com)
+[Demo Explorer](https://text-to-cad.earthtojake.com)
 
 [![GitHub stars](https://img.shields.io/github/stars/earthtojake/text-to-cad?style=for-the-badge&logo=github&label=Stars)](https://github.com/earthtojake/text-to-cad/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/earthtojake/text-to-cad?style=for-the-badge&logo=github&label=Forks)](https://github.com/earthtojake/text-to-cad/network/members)
@@ -27,6 +27,16 @@ An open source harness for generating 3D models with your favorite coding agent
 [![Vite](https://img.shields.io/badge/Vite-7-646CFF?style=for-the-badge&logo=vite&logoColor=white)](.agents/skills/cad/explorer/package.json)
 
 </div>
+
+## 💬 Getting Started
+
+To use text-to-cad, simply ask your agent (Codex, Claude Code, etc) to clone the repo:
+
+```
+https://github.com/earthtojake/text-to-cad
+```
+
+This will download the relevant AGENTS.md file and skills required to start generating 3D models and robot artifacts. The agent will start using the skills and load the local CAD explorer automatically.
 
 ## ✨ Features
 
