@@ -159,6 +159,8 @@ export default function CadWorkspaceTopBar({
     : `Expand ${fileSheetLabel(fileSheetKind)}`;
   const showTopBarSidebarTrigger = isMobile || sidebarState !== "expanded";
   const githubUrl = normalizeExplorerGithubUrl(import.meta.env?.EXPLORER_GITHUB_URL);
+  const isEmbedded = typeof window !== "undefined" && window.parent !== window;
+  const showGitHubLink = Boolean(githubUrl) && !isEmbedded;
 
   return (
     <header
@@ -201,18 +203,20 @@ export default function CadWorkspaceTopBar({
       </Breadcrumb>
 
       <div className="flex shrink-0 items-center gap-0.5">
-        <Button
-          asChild
-          variant="ghost"
-          size="icon-sm"
-          aria-label="Open GitHub repository"
-          title="Open GitHub repository"
-          className={topBarIconButtonClasses}
-        >
-          <a href={githubUrl} target="_blank" rel="noreferrer">
-            <GitHubMark className={topBarIconClasses} />
-          </a>
-        </Button>
+        {showGitHubLink ? (
+          <Button
+            asChild
+            variant="ghost"
+            size="icon-sm"
+            aria-label="Open GitHub repository"
+            title="Open GitHub repository"
+            className={topBarIconButtonClasses}
+          >
+            <a href={githubUrl} target="_blank" rel="noreferrer">
+              <GitHubMark className={topBarIconClasses} />
+            </a>
+          </Button>
+        ) : null}
 
         <Button
           type="button"

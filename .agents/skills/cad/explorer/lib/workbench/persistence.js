@@ -371,8 +371,8 @@ const GLOBAL_STATE_SCHEMA = [
   },
   {
     key: "sidebarOpen",
-    defaultValue: true,
-    normalize: (value) => normalizeBoolean(value, true)
+    defaultValue: false,
+    normalize: (value) => normalizeBoolean(value, false)
   },
   {
     key: "fileSheetOpen",

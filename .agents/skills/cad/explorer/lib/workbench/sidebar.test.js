@@ -303,7 +303,7 @@ test("workspace resize sync preserves wider preferred sidebar widths", () => {
   assert.equal(preferredPanelWidthAfterViewportSync(120, 150), 150);
 });
 
-test("workspace session state defaults sidebar open and side sheets closed", () => {
+test("workspace session state defaults sidebar closed and side sheets closed", () => {
   const originalWindow = globalThis.window;
   globalThis.window = {
     localStorage: createMemoryStorage(),
@@ -318,7 +318,7 @@ test("workspace session state defaults sidebar open and side sheets closed", () 
     });
 
     const restoredSession = readCadWorkspaceSessionState();
-    assert.equal(restoredSession.sidebarOpen, true);
+    assert.equal(restoredSession.sidebarOpen, false);
     assert.equal(restoredSession.fileSheetOpen, false);
     assert.equal(restoredSession.lookSheetOpen, false);
     assert.equal(restoredSession.urdfEntryAnimationEnabled, false);

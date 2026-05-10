@@ -1205,7 +1205,7 @@ export default function CadWorkspace({
   const [motionErrorStatus, setMotionErrorStatus] = useState("");
   const [robotMotionServerLive, setRobotMotionServerLive] = useState(false);
   const [workspaceLayoutMode, setWorkspaceLayoutMode] = useState(() => getCadWorkspaceLayoutMode(readWorkspaceViewportWidth()));
-  const [sidebarOpen, setSidebarOpen] = useState(() => getCadWorkspaceLayoutMode(readWorkspaceViewportWidth()) === CAD_WORKSPACE_LAYOUT_MODE.WIDE);
+  const [sidebarOpen, setSidebarOpen] = useState(() => false);
   const [sidebarWidth, setSidebarWidth] = useState(DEFAULT_SIDEBAR_WIDTH);
   const [layoutViewportWidth, setLayoutViewportWidth] = useState(readWorkspaceViewportWidth);
   const isDesktop = workspaceLayoutMode === CAD_WORKSPACE_LAYOUT_MODE.WIDE;
@@ -3806,6 +3806,22 @@ export default function CadWorkspace({
     () => buildSelectionCopyButtonLabel(copySelectionPayload.lines),
     [copySelectionPayload.lines]
   );
+
+  useEffect(() => {
+    if (!selectedEntry || typeof window === "undefined" || window.parent === window) {
+      return;
+    }
+    const cadRef = buildCadRefToken({ cadPath: cadPathForEntry(selectedEntry) });
+    if (!cadRef) {
+      return;
+    }
+    window.parent.postMessage({
+      type: "cad-explorer:selection",
+      file: selectedEntry.path || selectedEntry.file || selectedEntry.key || "",
+      cadRef,
+      selectedRefs: copySelectionPayload.lines
+    }, "*");
+  }, [copySelectionPayload.lines, selectedEntry]);
 
   useEffect(() => {
     if (!pendingCadRefQueryParams.length) {
