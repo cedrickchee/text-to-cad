@@ -25,6 +25,7 @@ import {
 
 const explorerPort = normalizeExplorerPort(process.env.EXPLORER_PORT, DEFAULT_EXPLORER_PORT);
 const explorerHost = process.env.EXPLORER_HOST || "127.0.0.1";
+const explorerAllowedHosts = normalizeAllowedHosts(process.env.EXPLORER_ALLOWED_HOSTS);
 const explorerAppRoot = path.dirname(fileURLToPath(import.meta.url));
 const defaultWorkspaceRoot = path.resolve(explorerAppRoot, "../../../..");
 const workspaceRoot = resolveWorkspaceRoot();
@@ -50,6 +51,14 @@ function resolveWorkspaceRoot() {
   }
 
   return defaultWorkspaceRoot;
+}
+
+function normalizeAllowedHosts(rawValue = "") {
+  const hosts = String(rawValue)
+    .split(",")
+    .map((host) => host.trim())
+    .filter(Boolean);
+  return hosts.length ? hosts : [".vercel.run"];
 }
 
 function withExplorerConfig(catalog) {
@@ -356,6 +365,7 @@ export default defineConfig({
     host: explorerHost,
     port: explorerPort,
     strictPort: true,
+    allowedHosts: explorerAllowedHosts,
   },
   preview: {
     host: explorerHost,
