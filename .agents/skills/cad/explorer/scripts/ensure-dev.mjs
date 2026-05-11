@@ -240,7 +240,7 @@ export function buildExplorerUrl(serverInfo, fileParam = "") {
 }
 
 export function probeExplorerServer(port, {
-  host = DEFAULT_EXPLORER_HOST,
+  host = process.env.EXPLORER_HOST || DEFAULT_EXPLORER_HOST,
   timeoutMs = DEFAULT_PROBE_TIMEOUT_MS,
 } = {}) {
   return new Promise((resolve) => {
@@ -281,7 +281,7 @@ export function probeExplorerServer(port, {
   });
 }
 
-export function canBindPort(port, { host = DEFAULT_EXPLORER_HOST } = {}) {
+export function canBindPort(port, { host = process.env.EXPLORER_HOST || DEFAULT_EXPLORER_HOST } = {}) {
   return new Promise((resolve) => {
     const server = net.createServer();
     server.once("error", () => resolve(false));
@@ -336,6 +336,7 @@ export function buildViteSpawnOptions({ workspaceRoot, rootDir, port, env = proc
         ...env,
         EXPLORER_WORKSPACE_ROOT: workspaceRoot,
         EXPLORER_ROOT_DIR: rootDir,
+        EXPLORER_HOST: env.EXPLORER_HOST || DEFAULT_EXPLORER_HOST,
         EXPLORER_PORT: String(port),
       },
     },

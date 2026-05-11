@@ -24,6 +24,7 @@ import {
 } from "./lib/explorerServerInfo.mjs";
 
 const explorerPort = normalizeExplorerPort(process.env.EXPLORER_PORT, DEFAULT_EXPLORER_PORT);
+const explorerHost = process.env.EXPLORER_HOST || "127.0.0.1";
 const explorerAppRoot = path.dirname(fileURLToPath(import.meta.url));
 const defaultWorkspaceRoot = path.resolve(explorerAppRoot, "../../../..");
 const workspaceRoot = resolveWorkspaceRoot();
@@ -352,12 +353,12 @@ export default defineConfig({
     },
   },
   server: {
-    host: "127.0.0.1",
+    host: explorerHost,
     port: explorerPort,
     strictPort: true,
   },
   preview: {
-    host: "127.0.0.1",
+    host: explorerHost,
     port: explorerPort,
     strictPort: true,
   },

@@ -25,6 +25,7 @@ export function buildExplorerServerInfo({
   port = DEFAULT_EXPLORER_PORT,
   pid = process.pid,
   host = DEFAULT_EXPLORER_HOST,
+  publicBaseUrl = process.env.EXPLORER_PUBLIC_BASE_URL,
 } = {}) {
   if (!workspaceRoot) {
     throw new Error("workspaceRoot is required");
@@ -41,7 +42,7 @@ export function buildExplorerServerInfo({
     rootPath: resolvedExplorerRoot.rootPath,
     port: normalizedPort,
     pid: Number.isInteger(pid) ? pid : process.pid,
-    url: `http://${host}:${normalizedPort}`,
+    url: publicBaseUrl || `http://${host}:${normalizedPort}`,
   };
 }
 
